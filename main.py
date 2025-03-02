@@ -11,8 +11,8 @@ BG_COLOR = (0, 0, 0)  # Black background
 WHITE = (255, 255, 255)  # White border
 
 # Ring properties
-ring_center = (400, 300)  # Center position
-ring_radius = 250  # Radius
+ring_center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)  # Center position
+ring_radius = 200  # Radius
 ring_width = 3  # Border thickness
 
 balls = [Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)]
