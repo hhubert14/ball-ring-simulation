@@ -10,27 +10,23 @@ class Ball:
         self,
         x,
         y,
-        x_vel=random.uniform(-2, 2),
-        y_vel=random.uniform(-2, 2),
-        radius=10,
+        x_vel=None,
+        y_vel=None,
+        radius=None,
     ):
         self.x = x
         self.y = y
-        self.x_vel = x_vel
-        self.y_vel = y_vel
+        self.x_vel = random.uniform(-2, 2) if x_vel is None else x_vel
+        self.y_vel = random.uniform(-2, 2) if y_vel is None else y_vel
         self.speed = [self.x_vel, self.y_vel]
         self.color = (
             random.uniform(0, 255),
             random.uniform(0, 255),
             random.uniform(0, 255),
         )
-        self.radius = radius
+        self.radius = random.uniform(20, 40) if radius is None else radius
     
     def update(self):
-        # Δy = v_initial × Δt + (1/2) × g × (Δt)²
-        # gravity_change = abs(self.y_vel) * DELTA_T + (1 / 2) * 9.8 * DELTA_T ** 2
-        # self.y_vel += gravity_change
-
         self.y_vel += GRAVITY
 
 
