@@ -10,15 +10,15 @@ class Ball:
         self,
         x,
         y,
-        xv=random.uniform(-2, 2),
-        yv=random.uniform(-2, 2),
+        x_vel=random.uniform(-2, 2),
+        y_vel=random.uniform(-2, 2),
         radius=10,
     ):
         self.x = x
         self.y = y
-        self.xv = xv
-        self.yv = yv
-        self.speed = [self.xv, self.yv]
+        self.x_vel = x_vel
+        self.y_vel = y_vel
+        self.speed = [self.x_vel, self.y_vel]
         self.color = (
             random.uniform(0, 255),
             random.uniform(0, 255),
@@ -28,15 +28,15 @@ class Ball:
     
     def update(self):
         # Δy = v_initial × Δt + (1/2) × g × (Δt)²
-        gravity_change = abs(self.yv) * DELTA_T + (1 / 2) * 9.8 * DELTA_T ** 2
-        self.yv += gravity_change
+        gravity_change = abs(self.y_vel) * DELTA_T + (1 / 2) * 9.8 * DELTA_T ** 2
+        self.y_vel += gravity_change
 
-        self.xv *= AIR_RESISTANCE
-        self.yv *= AIR_RESISTANCE
+        self.x_vel *= AIR_RESISTANCE
+        self.y_vel *= AIR_RESISTANCE
 
 
-        self.x += self.xv
-        self.y += self.yv
+        self.x += self.x_vel
+        self.y += self.y_vel
 
     def draw(self):
         pygame.draw.circle(
@@ -47,12 +47,26 @@ class Ball:
         )
 
     def check_ring_collision(self, ring_center, ring_radius):
-        centers_distance = math.sqrt(
-            (self.x - ring_center[0]) ** 2 + (self.x - ring_center[1]) ** 2
-        )
+        # Calculate distance between ball center and ring center
+        dx = self.x - ring_center[0]
+        dy = self.y - ring_center[1]
+        distance = math.sqrt(dx ** 2 + dy ** 2)
 
         # Collision detected
-        if centers_distance + self.radius >= ring_radius:
-            return True
+        if distance + self.radius >= ring_radius:
+            if distance > 0:
+                nx = dx / distance
+                ny = dy / distance
+            else:
+                nx = 0
+                ny = 0
 
-        
+            dot_product = self.x_vel * nx + self.y_vel * ny
+
+            self.x_vel = self.x_vel - 2 * dot_product * nx
+            self.y_vel = self.y_vel - 2 * dot_product * ny
+
+            # Move ball back inside the ring to prevent sticking
+            overlap = (distance + self.radius) - ring_radius
+            self.x -= overlap * nx
+            self.y -= overlap * ny

@@ -37,6 +37,7 @@ while run:
 
     ball.draw()
     ball.update()
+    ball.check_ring_collision(ring_center, ring_radius)
 
 
 
