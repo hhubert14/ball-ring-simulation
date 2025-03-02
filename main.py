@@ -15,7 +15,7 @@ ring_center = (400, 300)  # Center position
 ring_radius = 250  # Radius
 ring_width = 3  # Border thickness
 
-balls = [Ball(400, 300)]
+balls = [Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)]
 
 
 run = True
@@ -36,6 +36,6 @@ while run:
         ball.draw()
         ball.update()
         if ball.check_ring_collision(ring_center, ring_radius):
-            balls.append(ball)
+            balls.append(Ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
 
 pygame.quit()

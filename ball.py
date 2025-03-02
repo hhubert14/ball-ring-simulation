@@ -73,3 +73,7 @@ class Ball:
             overlap = (distance + self.radius) - ring_radius
             self.x -= overlap * nx
             self.y -= overlap * ny
+
+            return True
+
+        return False
