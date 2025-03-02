@@ -28,11 +28,14 @@ class Ball:
     
     def update(self):
         # Δy = v_initial × Δt + (1/2) × g × (Δt)²
-        gravity_change = abs(self.y_vel) * DELTA_T + (1 / 2) * 9.8 * DELTA_T ** 2
-        self.y_vel += gravity_change
+        # gravity_change = abs(self.y_vel) * DELTA_T + (1 / 2) * 9.8 * DELTA_T ** 2
+        # self.y_vel += gravity_change
 
-        self.x_vel *= AIR_RESISTANCE
-        self.y_vel *= AIR_RESISTANCE
+        self.y_vel += GRAVITY
+
+
+        self.x_vel *= VELOCITY_MULTIPLIER
+        self.y_vel *= VELOCITY_MULTIPLIER
 
 
         self.x += self.x_vel
